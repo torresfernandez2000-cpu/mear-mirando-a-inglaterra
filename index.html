@@ -6,64 +6,44 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Brújula → Londres</title>
+<title>Brujula Londres</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  body {
-    background:#0a0a0f; color:#fff;
-    font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;
-    height:100dvh; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    overflow:hidden; user-select:none;
-  }
-  #splash {
-    position:fixed; inset:0; background:#0a0a0f;
-    display:flex; flex-direction:column; align-items:center;
-    justify-content:center; gap:20px; z-index:100; padding:40px;
-  }
-  #splash .icon { font-size:64px; }
-  #splash h1 { font-size:28px; font-weight:300; text-align:center; }
-  #splash p  { font-size:15px; color:#888; text-align:center; line-height:1.6; max-width:280px; }
-  #splash .btn {
-    padding:18px 0; background:#fff; color:#000; border:none;
-    border-radius:50px; font-size:17px; font-weight:700;
-    width:100%; max-width:280px; cursor:pointer;
-  }
-  #splash .btn:active { opacity:0.75; }
-  #splash .note { font-size:11px; color:#3a3a3a; text-align:center; max-width:260px; }
-  #splash.hidden { display:none; }
-  #app { display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; }
-  .title { font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#555; margin-bottom:10px; }
-  .hdg { font-size:58px; font-weight:200; letter-spacing:-2px; font-variant-numeric:tabular-nums; min-width:130px; text-align:center; }
-  .crd { font-size:15px; color:#666; letter-spacing:3px; margin-bottom:36px; min-height:22px; }
-  .wrap { position:relative; width:290px; height:290px; }
-  canvas { position:absolute; inset:0; border-radius:50%; }
-  .dot { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:10px; height:10px; background:#fff; border-radius:50%; z-index:10; box-shadow:0 0 10px rgba(255,255,255,.9); }
-  .ptr { position:absolute; top:50%; left:50%; width:114px; height:2px; transform-origin:4px 50%; z-index:9; }
-  .fw { position:absolute; right:-34px; top:-24px; display:flex; flex-direction:column; align-items:center; }
-  .flag { width:30px; height:20px; border-radius:2px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 10px rgba(0,0,0,.8); }
-  .r { background:#AA151B; flex:1; }
-  .y { background:#F1BF00; flex:1.6; }
-  .pole { width:2px; height:24px; background:#aaa; margin-left:1px; }
-  .lbl { position:absolute; right:-62px; top:30px; font-size:9px; font-weight:700; letter-spacing:1.5px; color:#F1BF00; text-transform:uppercase; white-space:nowrap; text-shadow:0 1px 4px #000; }
-  .info { margin-top:32px; display:flex; flex-direction:column; align-items:center; gap:8px; }
-  .ldeg { font-size:13px; color:#666; }
-  .ldeg span { color:#F1BF00; font-weight:600; }
-  .st { font-size:11px; color:#444; letter-spacing:1px; }
-  .st.ok  { color:#2ecc71; }
-  .st.err { color:#e74c3c; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:#0a0a0f;color:#fff;font-family:-apple-system,sans-serif;height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+#splash{position:fixed;inset:0;background:#0a0a0f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:100;padding:40px;}
+#splash h1{font-size:26px;font-weight:300;text-align:center;}
+#splash p{font-size:14px;color:#888;text-align:center;line-height:1.6;max-width:280px;}
+#startBtn{padding:20px 0;background:#fff;color:#000;border:none;border-radius:50px;font-size:18px;font-weight:700;width:100%;max-width:280px;cursor:pointer;-webkit-appearance:none;}
+#splash.hidden{display:none;}
+#app{display:none;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;}
+.title{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#555;margin-bottom:10px;}
+.hdg{font-size:58px;font-weight:200;letter-spacing:-2px;min-width:130px;text-align:center;}
+.crd{font-size:15px;color:#666;letter-spacing:3px;margin-bottom:36px;min-height:22px;}
+.wrap{position:relative;width:290px;height:290px;}
+canvas{position:absolute;inset:0;border-radius:50%;}
+.dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;background:#fff;border-radius:50%;z-index:10;box-shadow:0 0 10px rgba(255,255,255,.9);}
+.ptr{position:absolute;top:50%;left:50%;width:114px;height:2px;transform-origin:4px 50%;z-index:9;}
+.fw{position:absolute;right:-34px;top:-24px;display:flex;flex-direction:column;align-items:center;}
+.flag{width:30px;height:20px;border-radius:2px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 10px rgba(0,0,0,.8);}
+.r{background:#AA151B;flex:1;}.y{background:#F1BF00;flex:1.6;}
+.pole{width:2px;height:24px;background:#aaa;margin-left:1px;}
+.lbl{position:absolute;right:-62px;top:30px;font-size:9px;font-weight:700;letter-spacing:1.5px;color:#F1BF00;text-transform:uppercase;white-space:nowrap;}
+.info{margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.ldeg{font-size:13px;color:#666;}.ldeg span{color:#F1BF00;font-weight:600;}
+.st{font-size:11px;color:#444;letter-spacing:1px;}
+.st.ok{color:#2ecc71;}.st.err{color:#e74c3c;}
+#dbg{position:fixed;bottom:10px;left:10px;right:10px;font-size:10px;color:#555;word-break:break-all;}
 </style>
 </head>
 <body>
 <div id="splash">
-  <div class="icon">🧭</div>
-  <h1>Brújula → Londres</h1>
-  <p>Necesita acceso al sensor de movimiento del dispositivo.</p>
-  <button class="btn" id="startBtn">Activar brújula</button>
-  <p class="note">Ubicación usada solo para calcular el rumbo. No se guarda ni envía.</p>
+  <h1>Brujula a Londres</h1>
+  <p>Toca el boton para activar el sensor de brujula.</p>
+  <button type="button" id="startBtn">Activar brujula</button>
+  <p style="font-size:11px;color:#3a3a3a;text-align:center;max-width:260px;margin-top:4px;">Solo funciona en Safari</p>
 </div>
 <div id="app">
-  <div class="title">Brújula</div>
+  <div class="title">Brujula</div>
   <div class="hdg" id="hdg">---</div>
   <div class="crd" id="crd">&nbsp;</div>
   <div class="wrap">
@@ -78,87 +58,105 @@
     <div class="dot"></div>
   </div>
   <div class="info">
-    <div class="ldeg">Londres: <span id="lbear">--</span>° desde tu posición</div>
+    <div class="ldeg">Londres: <span id="lbear">--</span> grados</div>
     <div class="st" id="st">Esperando sensor...</div>
   </div>
 </div>
+<div id="dbg"></div>
 <script>
-  var uLat=40.4168, uLng=-3.7038;
-  var LON_LAT=51.5074, LON_LNG=-0.1278;
-  var cH=0, tH=0, lB=315, ready=false;
-  document.getElementById('startBtn').onclick = function() {
-    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
-      DeviceOrientationEvent.requestPermission().then(function(state) {
-        if (state === 'granted') { launch(); }
-        else { alert('Permiso denegado.
+var uLat=40.4168,uLng=-3.7038,LON_LAT=51.5074,LON_LNG=-0.1278;
+var cH=0,tH=0,lB=315,ready=false;
 
-Ve a: Ajustes → Safari → Configuración de sitios web → Movimiento y orientación → Permitir'); }
-      }).catch(function() { launch(); });
-    } else { launch(); }
-  };
-  function launch() {
-    document.getElementById('splash').classList.add('hidden');
-    document.getElementById('app').style.display = 'flex';
-    window.addEventListener('deviceorientation', onOri, true);
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(p) {
-        uLat=p.coords.latitude; uLng=p.coords.longitude;
-        lB=bear(uLat,uLng,LON_LAT,LON_LNG);
-        document.getElementById('lbear').textContent=Math.round(lB);
-      }, function() { lB=bear(uLat,uLng,LON_LAT,LON_LNG); document.getElementById('lbear').textContent=Math.round(lB); });
-    } else { lB=bear(uLat,uLng,LON_LAT,LON_LNG); document.getElementById('lbear').textContent=Math.round(lB); }
-    requestAnimationFrame(loop);
+function dbg(msg){
+  var el=document.getElementById('dbg');
+  if(el) el.textContent=msg;
+}
+
+function doRequest(){
+  dbg('Tocado. Comprobando sensor...');
+  if(typeof DeviceOrientationEvent==='undefined'){
+    dbg('ERROR: DeviceOrientationEvent no existe');
+    launch();return;
   }
-  function onOri(e) {
-    var h=null;
-    if (e.webkitCompassHeading!=null) { h=e.webkitCompassHeading; }
-    else if (e.alpha!=null) { h=(360-e.alpha)%360; }
-    if (h!=null && !isNaN(h)) {
-      tH=h;
-      if (!ready) { ready=true; document.getElementById('st').textContent='● Sensor activo'; document.getElementById('st').className='st ok'; }
-      var r=Math.round(h);
-      document.getElementById('hdg').textContent=r+'°';
-      document.getElementById('crd').textContent=card(r);
-    }
-  }
-  function bear(a,b,c,d) {
-    var r=function(x){return x*Math.PI/180};
-    var dl=r(d-b),f1=r(a),f2=r(c);
-    return(Math.atan2(Math.sin(dl)*Math.cos(f2),Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl))*180/Math.PI+360)%360;
-  }
-  function card(d) { return['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO'][Math.round(d/22.5)%16]; }
-  var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
-  var W=290, C=145, R=136;
-  function draw(a) {
-    ctx.clearRect(0,0,W,W);
-    var bg=ctx.createRadialGradient(C,C,10,C,C,R);
-    bg.addColorStop(0,'#18182a'); bg.addColorStop(1,'#0a0a14');
-    ctx.fillStyle=bg; ctx.beginPath(); ctx.arc(C,C,R,0,Math.PI*2); ctx.fill();
-    ctx.strokeStyle='#252540'; ctx.lineWidth=1.5; ctx.stroke();
-    for(var i=0;i<360;i+=5){
-      var rad=((i-a)*Math.PI)/180;
-      var maj=i%90===0, med=i%45===0&&!maj, t10=i%10===0&&!med&&!maj;
-      var inn=maj?R-26:med?R-18:t10?R-12:R-8;
-      ctx.strokeStyle=maj?'#fff':t10?'#555':'#2e2e2e'; ctx.lineWidth=maj?2:1;
-      ctx.beginPath();
-      ctx.moveTo(C+Math.sin(rad)*inn, C-Math.cos(rad)*inn);
-      ctx.lineTo(C+Math.sin(rad)*(R-4), C-Math.cos(rad)*(R-4));
-      ctx.stroke();
-    }
-    [{l:'N',d:0,c:'#e74c3c',s:17},{l:'S',d:180,c:'#eee',s:14},{l:'E',d:90,c:'#eee',s:14},{l:'O',d:270,c:'#eee',s:14}]
-    .forEach(function(x){
-      var rad=((x.d-a)*Math.PI)/180;
-      ctx.fillStyle=x.c; ctx.font='bold '+x.s+'px -apple-system,sans-serif';
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText(x.l, C+Math.sin(rad)*(R-36), C-Math.cos(rad)*(R-36));
+  if(typeof DeviceOrientationEvent.requestPermission==='function'){
+    dbg('iOS 13+: pidiendo permiso...');
+    DeviceOrientationEvent.requestPermission().then(function(r){
+      dbg('Respuesta: '+r);
+      if(r==='granted'){launch();}
+      else{dbg('DENEGADO. Ve a Ajustes > Safari > Movimiento y orientacion');}
+    }).catch(function(e){
+      dbg('Error permiso: '+e+'. Intentando sin permiso...');
+      launch();
     });
-    ctx.beginPath(); ctx.moveTo(C,C-50); ctx.lineTo(C-5,C); ctx.lineTo(C+5,C); ctx.closePath(); ctx.fillStyle='#e74c3c'; ctx.fill();
-    ctx.beginPath(); ctx.moveTo(C,C+36); ctx.lineTo(C-5,C); ctx.lineTo(C+5,C); ctx.closePath(); ctx.fillStyle='#ddd'; ctx.fill();
-    ctx.beginPath(); ctx.arc(C,C,5,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
+  } else {
+    dbg('Android/iOS antiguo: lanzando directamente');
+    launch();
   }
-  function lerp(a,b,t){ var d=b-a; while(d>180)d-=360; while(d<-180)d+=360; return a+d*t; }
-  function loop(){ cH=lerp(cH,tH,0.1); draw(cH); document.getElementById('ptr').style.transform='translate(-4px,-1px) rotate('+(lB-cH)+'deg)'; requestAnimationFrame(loop); }
-  draw(0);
+}
+
+var btn=document.getElementById('startBtn');
+btn.addEventListener('touchend',function(e){e.preventDefault();doRequest();},{passive:false});
+btn.addEventListener('click',function(e){e.preventDefault();doRequest();});
+
+function launch(){
+  dbg('Lanzando app...');
+  document.getElementById('splash').classList.add('hidden');
+  document.getElementById('app').style.display='flex';
+  window.addEventListener('deviceorientation',onOri,true);
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(p){
+      uLat=p.coords.latitude;uLng=p.coords.longitude;
+      lB=bear(uLat,uLng,LON_LAT,LON_LNG);
+      document.getElementById('lbear').textContent=Math.round(lB);
+    },function(){
+      lB=bear(uLat,uLng,LON_LAT,LON_LNG);
+      document.getElementById('lbear').textContent=Math.round(lB);
+    });
+  }
+  requestAnimationFrame(loop);
+}
+
+function onOri(e){
+  var h=null;
+  if(e.webkitCompassHeading!=null){h=e.webkitCompassHeading;}
+  else if(e.alpha!=null){h=(360-e.alpha)%360;}
+  if(h!=null&&!isNaN(h)){
+    tH=h;
+    if(!ready){ready=true;document.getElementById('st').textContent='Sensor activo';document.getElementById('st').className='st ok';dbg('');}
+    var r=Math.round(h);
+    document.getElementById('hdg').textContent=r+'°';
+    document.getElementById('crd').textContent=card(r);
+  }
+}
+
+function bear(a,b,c,d){var r=function(x){return x*Math.PI/180};var dl=r(d-b),f1=r(a),f2=r(c);return(Math.atan2(Math.sin(dl)*Math.cos(f2),Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl))*180/Math.PI+360)%360;}
+function card(d){return['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO'][Math.round(d/22.5)%16];}
+
+var cv=document.getElementById('cv'),ctx=cv.getContext('2d'),W=290,C=145,R=136;
+function draw(a){
+  ctx.clearRect(0,0,W,W);
+  var bg=ctx.createRadialGradient(C,C,10,C,C,R);
+  bg.addColorStop(0,'#18182a');bg.addColorStop(1,'#0a0a14');
+  ctx.fillStyle=bg;ctx.beginPath();ctx.arc(C,C,R,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#252540';ctx.lineWidth=1.5;ctx.stroke();
+  for(var i=0;i<360;i+=5){
+    var rad=((i-a)*Math.PI)/180;
+    var maj=i%90===0,med=i%45===0&&!maj,t10=i%10===0&&!med&&!maj;
+    var inn=maj?R-26:med?R-18:t10?R-12:R-8;
+    ctx.strokeStyle=maj?'#fff':t10?'#555':'#2e2e2e';ctx.lineWidth=maj?2:1;
+    ctx.beginPath();ctx.moveTo(C+Math.sin(rad)*inn,C-Math.cos(rad)*inn);ctx.lineTo(C+Math.sin(rad)*(R-4),C-Math.cos(rad)*(R-4));ctx.stroke();
+  }
+  [{l:'N',d:0,c:'#e74c3c',s:17},{l:'S',d:180,c:'#eee',s:14},{l:'E',d:90,c:'#eee',s:14},{l:'O',d:270,c:'#eee',s:14}].forEach(function(x){
+    var rad=((x.d-a)*Math.PI)/180;ctx.fillStyle=x.c;ctx.font='bold '+x.s+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(x.l,C+Math.sin(rad)*(R-36),C-Math.cos(rad)*(R-36));
+  });
+  ctx.beginPath();ctx.moveTo(C,C-50);ctx.lineTo(C-5,C);ctx.lineTo(C+5,C);ctx.closePath();ctx.fillStyle='#e74c3c';ctx.fill();
+  ctx.beginPath();ctx.moveTo(C,C+36);ctx.lineTo(C-5,C);ctx.lineTo(C+5,C);ctx.closePath();ctx.fillStyle='#ddd';ctx.fill();
+  ctx.beginPath();ctx.arc(C,C,5,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+}
+function lerp(a,b,t){var d=b-a;while(d>180)d-=360;while(d<-180)d+=360;return a+d*t;}
+function loop(){cH=lerp(cH,tH,0.1);draw(cH);document.getElementById('ptr').style.transform='translate(-4px,-1px) rotate('+(lB-cH)+'deg)';requestAnimationFrame(loop);}
+draw(0);
 </script>
 </body>
 </html>
